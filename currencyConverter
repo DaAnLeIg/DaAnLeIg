@@ -1,0 +1,62 @@
+# 1. Приветствие
+# 2. Мануал – как пользоваться программой и какие валюты доступны
+# 3. Ввести исходную валюту
+# 4. Ввести в какую валюту перевести
+# 5. Количество валюты
+# 6. Подсчёт
+# 7. Вывод результата
+
+import requests
+
+def get_actual_currencies():
+response = requests.get
+
+URL = 'https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_TtfVSf8srdr2cVVUoOAxytme0cVbIzNzEmI0QDmb&currencies='
+API_KEY = ‘fca_live_TtfVSf8srdr2cVVUoOAxytme0cVbIzNzEmI0QDmb’
+
+CURRENCIES = get(URL, API_KEY)
+#{
+#"USD": 1,
+#"RUB": 96.8,
+#"EUR": 0.94,
+#"NIS": 3.81,
+#}
+
+def convert(amount: float, from_currency: str, to_currency: str, CURRENCIES: dict) -> float:
+  from_value = CURRENCIES.get(from_currency)
+  to_value = CURRENCIES.get(to_currency)
+  coefficient = to_value / from_value
+  return round(amount * coefficient, 2)
+
+#1
+print("Welcome to the currency converter!")
+#2
+print('''
+Instruction:
+Enter your current currency.
+Enter the currency you are transferring to.
+Enter the amount of your current currency.
+''')
+
+print('The currency are available: ')
+for key in CURRENCIES:
+  print(f'*{key}')
+  
+#3
+current_currency = input("\nEnter your current currency: ").upper() 
+#4
+result_currency = input("Enter the currency you are transferring to: ").upper() 
+#5
+def check_amount():
+    amount = round(input("Enter the amount of your current currency: "),2)
+     if amount <=0:
+         print(‘The amount less or equal to 0. Please, reenter’)
+         return check_amount()
+     
+
+
+#6
+result = convert(float(amount), current_currency, result_currency, CURRENCIES)
+
+print(f'\n{amount} {current_currency} is equal to {result} {result_currency}')
+
